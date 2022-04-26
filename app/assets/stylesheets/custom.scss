@@ -50,23 +50,39 @@ p {
   line-height: 1.7em;
 }
 
+
 /* ヘッダー */
+
+#header {
+  background-color: mediumturquoise;
+}
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
   color: #fff;
-  text-transform: uppercase;
+  text-transform: none;
+  font-style: italic;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
 }
 
 #logo:hover {
-  color: #fff;
+  color: silver;
   text-decoration: none;
 }
+
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: silver;
+}
+
 
 /* デバッグウインドウ */
 
@@ -95,4 +111,9 @@ p {
   .form-control {
     color: $state-danger-text;
   }
+}
+
+#top-main-title {
+    font-style: italic;
+    font-weight: bold;
 }
