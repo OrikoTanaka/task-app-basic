@@ -9,15 +9,15 @@
       <table class="table table-hover" id="table-tasks">
         <thead>
           <tr>
-            <th>名称</th>
-            <th>作成日</th>
+            <th><%= Task.human_attribute_name :name %></th>
+            <th><%= Task.human_attribute_name :created_at %></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <% @tasks.each do |task| %>
             <tr>
-              <td><%= link_to task.name, user_task_path(current_user, task) %></td>
+              <td><%= link_to task.name, user_task_path(current_user, task), id: "task-name" %></td>
               <td><%= l(task.created_at, format: :long) %></td>
               <td>
                 <%= link_to "編集", edit_user_task_path(current_user, task), class: "btn btn-success" %>
