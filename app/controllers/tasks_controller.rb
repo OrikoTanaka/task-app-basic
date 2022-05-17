@@ -34,6 +34,11 @@ class TasksController < ApplicationController
     redirect_to user_task_url(current_user)
   end
   
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to user_tasks_url
+  end
   
   private
   
