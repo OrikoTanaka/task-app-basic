@@ -13,7 +13,7 @@
     </tr>
     <tr>
       <th><%= Task.human_attribute_name :note %></th>
-      <td><%= @task.note %></td>
+      <td><%= text_url_to_link(safe_join((h(@task.note)).split("\n"),tag(:br))).html_safe %></td>
     </tr>
     <tr>
       <th><%= Task.human_attribute_name :created_at %></th>
