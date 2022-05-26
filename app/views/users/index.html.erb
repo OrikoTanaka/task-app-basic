@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <%= will_paginate %>
+    <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <table class="table table-condensed table-hover" id="table-users">
       <thead>
         <tr>
@@ -13,10 +13,24 @@
   
       <% @users.each do |user| %>
         <tr>
-          <td><%= link_to user.name, user %></td>
+          <td>
+            <%= link_to user.name, user %>
+            <% if user.admin? %>
+              <span class="label label-primary label-user-division">管理者</span>
+            <% else %>
+              <span class="label label-success label-user-division">一般</span>
+            <% end %>
+          </td>
+          <td>
+            <% unless user.admin? %>
+              <%= link_to "削除", user, method: :delete,
+                  data: { confirm: "#{user.name}を削除します。よろしいですか？" },
+                  class: "btn btn-danger btn-sm pull-right" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
-    <%= will_paginate %>
+    <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
   </div>
 </div>
