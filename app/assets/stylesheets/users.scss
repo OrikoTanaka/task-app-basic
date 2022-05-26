@@ -5,3 +5,22 @@
 .btn-user--edit {
   margin-top: 10px;
 }
+
+#table-user {
+  th {
+    vertical-align: middle;
+    text-align: center;
+    table-layout:fixed;
+    font-weight: bold;
+    background-color: #f5f5f5;
+  }
+  td {
+    vertical-align: middle;
+  }
+}
+
+#table-users {
+  td {
+    vertical-align: middle;
+  }
+}
