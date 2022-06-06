@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :admin_user, only: [:index, :destroy]
   before_action :admin_or_correct_user, only: :show
 
@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   end
 
   def new
+    if logged_in? && !current_user.admin?
+      flash[:info] = 'すでにログインしています。'
+      redirect_to current_user
+    end
     @user = User.new
   end
   
