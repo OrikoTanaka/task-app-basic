@@ -2,11 +2,13 @@ class TasksController < ApplicationController
   
   before_action :set_user, only: [:index, :show, :new, :edit, :update]
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_or_correct_user, only: [:update, :edit]
+  before_action :correct_user, only: :new
+  before_action :admin_or_correct_user, only: :update
+  before_action :limitation_correct_user, only: :edit
+  
   
   def index
-    @tasks = @user.tasks
+    @tasks = @user.tasks.order("id DESC")
   end
   
   def show
@@ -58,28 +60,12 @@ class TasksController < ApplicationController
       @user = User.find(params[:user_id])
     end
     
-    
-     # ログイン済みのユーザーか確認します。
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください。"
-        redirect_to login_url
+    def limitation_correct_user
+      unless @current_user.id == params[:user_id].to_i
+        flash[:danger] = "ほかのユーザーの編集はできません。"
+        redirect_to root_url
       end
     end
-    
-    # アクセスしたユーザーが現在ログインしているユーザーか確認します。
-    def correct_user
-      redirect_to root_url unless current_user?(@user)
-    end
-    
-    # 管理権限者、または現在ログインしているユーザーを許可します。
-    def admin_or_correct_user
-      @user = User.find(params[:user_id]) if @user.blank?
-      unless current_user?(@user) || current_user.admin?
-        flash[:danger] = "編集権限がありません。"
-        redirect_to root_url
-      end  
-    end
+        
 end
 
