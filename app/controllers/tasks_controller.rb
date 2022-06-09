@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   
   before_action :set_user, only: [:index, :show, :new, :edit, :update]
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :correct_user, only: :new
-  before_action :admin_or_correct_user, only: :update
-  before_action :limitation_correct_user, only: :edit
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  # before_action :admin_or_correct_user, only: :
+  # before_action :limitation_correct_user, only: :
   
   
   def index
@@ -59,13 +59,5 @@ class TasksController < ApplicationController
     def set_user
       @user = User.find(params[:user_id])
     end
-    
-    def limitation_correct_user
-      unless @current_user.id == params[:user_id].to_i
-        flash[:danger] = "ほかのユーザーの編集はできません。"
-        redirect_to root_url
-      end
-    end
-        
 end
 
